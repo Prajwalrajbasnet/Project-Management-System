@@ -1,2 +1,11 @@
-#dependencies
+# dependencies
 node_modules/
+
+
+#misc
+.DS_STORE
+
+#env
+.env
+
+npm-debug.log*

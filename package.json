@@ -4,7 +4,8 @@
   "description": "Project managment system",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon ./src/app.js"
   },
   "author": "Prajwal Raj Basnet",
   "license": "ISC",
@@ -12,7 +13,11 @@
     "body-parser": "^1.19.0",
     "bookshelf": "^1.2.0",
     "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
     "knex": "^0.21.5",
     "pg": "^8.3.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
   }
 }

@@ -1,0 +1,15 @@
+{
+  "parser": "eslint-babel",
+  "parserOptions": {
+    "ecmaVersion": 2018,
+    "sourceType": "module"
+  },
+
+  "env": {
+    "es6": true,
+    "browser": true,
+    "node": true
+  },
+  "plugins": ["prettier"],
+  "extends": ["prettier", "eslint:recommended", "eslint-config-leapfrog/react"]
+}
