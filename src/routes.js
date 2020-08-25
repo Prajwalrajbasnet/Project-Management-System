@@ -1,6 +1,7 @@
 const router = require('express').Router(),
   authRoute = require('./routes/authRoute'),
-  userRoute = require('./routes/userRoute');
+  userRoute = require('./routes/userRoute'),
+  authenticate = require('./middlewares/authenticate');
 //GET request to root of API
 router.get('/', (req, res) => {
   res.json({
@@ -15,6 +16,6 @@ router.get('/test', (req, res) => {
 
 //All types of request related to Authentication
 router.use('/auth', authRoute);
-router.use('/users', userRoute);
+router.use('/users', authenticate, userRoute);
 
 module.exports = router;

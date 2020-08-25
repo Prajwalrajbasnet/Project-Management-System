@@ -1,6 +1,15 @@
-const userService = require('../services/userService');
+const userService = require('../services/userService'),
+  { validationResult } = require('express-validator'),
+  { userRoles } = require('../constants');
 
 function registerUser(req, res, next) {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(422).json({
+      errors: errors.array()
+    });
+  }
+
   userService
     .createUser(req.body)
     .then((newUser) =>
@@ -39,24 +48,83 @@ function fetchUserById(req, res, next) {
 }
 
 function modifyUserById(req, res, next) {
-  userService
-    .updateUser(req.params.id, req.body)
-    .then((data) =>
-      res.json({
-        id: data.attributes.id,
-        email: data.attributes.email,
-        username: data.attributes.username,
-        fname: data.attributes.fname,
-        lname: data.attributes.lname,
-        role: data.attributes.role
-      })
-    )
-    .catch((err) => {
-      err.message = 'Error occured while modifying user';
-      err.statusCode = 500;
-      console.log(err);
-      next(err);
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(422).json({
+      errors: errors.array()
     });
+  }
+  if (req.user.attributes.role === userRoles.admin) {
+    userService
+      .updateUserWithRole(req.params.id, req.body)
+      .then((data) =>
+        res.json({
+          id: data.attributes.id,
+          email: data.attributes.email,
+          username: data.attributes.username,
+          fname: data.attributes.fname,
+          lname: data.attributes.lname,
+          role: data.attributes.role
+        })
+      )
+      .catch((err) => {
+        err.message = 'Error occured while modifying user';
+        err.statusCode = 500;
+        console.log(err);
+        next(err);
+      });
+  } else {
+    userService
+      .updateUser(req.params.id, req.body)
+      .then((data) =>
+        res.json({
+          id: data.attributes.id,
+          email: data.attributes.email,
+          username: data.attributes.username,
+          fname: data.attributes.fname,
+          lname: data.attributes.lname
+        })
+      )
+      .catch((err) => {
+        err.message = 'Error occured while modifying user';
+        err.statusCode = 500;
+        console.log(err);
+        next(err);
+      });
+  }
+}
+
+async function changePassword(req, res, next) {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(422).json({
+      errors: errors.array()
+    });
+  }
+
+  try {
+    const valid = await userService.verifyPassword(req.params.id, req.body.previousPassword);
+    if (valid) {
+      userService
+        .updatePassword(req.params.id, req.body.newPassword)
+        .then((response) => {
+          res.json({
+            message: 'Update successful',
+            status: 200
+          });
+        })
+        .catch((err) => {
+          next(err);
+        });
+    } else {
+      next('Wrong previous password');
+    }
+  } catch (err) {
+    if (err.message == 'EmptyResponse') {
+      next('Wrong previous password');
+    }
+    throw err;
+  }
 }
 
 function removeUserById(req, res, next) {
@@ -71,5 +139,6 @@ module.exports = {
   fetchAllUsers,
   fetchUserById,
   modifyUserById,
+  changePassword,
   removeUserById
 };

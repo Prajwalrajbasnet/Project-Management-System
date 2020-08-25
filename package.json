@@ -19,6 +19,7 @@
     "bookshelf": "^1.2.0",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
+    "express-validator": "^6.6.1",
     "jsonwebtoken": "^8.5.1",
     "knex": "^0.21.5",
     "knex-migrate": "^1.7.4",

@@ -28,8 +28,46 @@ function updateUser(id, newDetails) {
       fname: newDetails.fname,
       lname: newDetails.lname,
       email: newDetails.email,
-      username: newDetails.username,
-      role: newDetails.role
+      username: newDetails.username
+    },
+    {
+      patch: true
+    }
+  );
+}
+
+function updateUserWithRole(id, details) {
+  return User.where({ id }).save(
+    {
+      fname: details.fname,
+      lname: details.lname,
+      email: details.email,
+      username: details.username,
+      role: details.role
+    },
+    {
+      patch: true
+    }
+  );
+}
+
+function verifyPassword(id, plainPassword) {
+  return User.where({ id })
+    .fetch()
+    .then((user) => {
+      const passwordIsValid = bcrypt.compareSync(plainPassword, user.attributes.password);
+      return passwordIsValid;
+    })
+    .catch((err) => {
+      throw err;
+    });
+}
+
+function updatePassword(id, plainPassword) {
+  const hashedPassword = bcrypt.hashSync(plainPassword, 12);
+  return User.where({ id }).save(
+    {
+      password: hashedPassword
     },
     {
       patch: true
@@ -46,5 +84,8 @@ module.exports = {
   getAllUsers,
   getUser,
   updateUser,
+  updateUserWithRole,
+  verifyPassword,
+  updatePassword,
   deleteUser
 };
