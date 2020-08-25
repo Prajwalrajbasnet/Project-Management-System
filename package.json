@@ -1,20 +1,27 @@
 {
-  "name": "project",
+  "name": "pms",
   "version": "1.0.0",
-  "description": "Project managment system",
+  "description": "Project managment system REST API. A complete system to create manage and supervise projects.",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon ./src/app.js"
   },
   "author": "Prajwal Raj Basnet",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Prajwalrajbasnet/Project-Management-System"
+  },
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "bookshelf": "^1.2.0",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
+    "jsonwebtoken": "^8.5.1",
     "knex": "^0.21.5",
+    "knex-migrate": "^1.7.4",
     "pg": "^8.3.2"
   },
   "devDependencies": {
