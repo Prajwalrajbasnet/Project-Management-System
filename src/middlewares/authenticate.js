@@ -18,7 +18,7 @@ module.exports = (req, res, next) => {
   }
   jwt.verify(token, process.env.SECRET_KEY, (err, decodedData) => {
     if (err) {
-      next(err);
+      return next(err);
     }
     const id = decodedData.id;
     userService
@@ -27,6 +27,8 @@ module.exports = (req, res, next) => {
         req.user = user;
         return next();
       })
-      .catch((err) => next(err));
+      .catch((err) => {
+        return next(err);
+      });
   });
 };

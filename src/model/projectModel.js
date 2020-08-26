@@ -1,11 +1,11 @@
 const bookshelf = require('../db');
 const ProjectUsers = require('./projectusersModel');
 
-const User = bookshelf.Model.extend({
-  tableName: 'user',
+const Project = bookshelf.Model.extend({
+  tableName: 'project',
   projectusers: function () {
     return this.hasMany(ProjectUsers);
   }
 });
 
-module.exports = User;
+module.exports = Project;
