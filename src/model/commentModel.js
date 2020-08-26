@@ -2,13 +2,13 @@ const bookshelf = require('../db');
 const Task = require('./taskModel');
 const User = require('./userModel');
 
-const Comment = bookshelf.Model.extend({
+const Comment = bookshelf.model('Comment', {
   tableName: 'comment',
   task: function () {
-    return this.belongsTo(Task);
+    return this.belongsTo('Task');
   },
   user: function () {
-    return this.belongsTo(User);
+    return this.belongsTo('User');
   }
 });
 

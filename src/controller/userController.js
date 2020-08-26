@@ -70,7 +70,6 @@ function modifyUserById(req, res, next) {
       .catch((err) => {
         err.message = 'Error occured while modifying user';
         err.statusCode = 500;
-        console.log(err);
         next(err);
       });
   } else {
@@ -88,7 +87,6 @@ function modifyUserById(req, res, next) {
       .catch((err) => {
         err.message = 'Error occured while modifying user';
         err.statusCode = 500;
-        console.log(err);
         next(err);
       });
   }

@@ -8,15 +8,26 @@ function fetchAllProjects(req, res, next) {
       .then((projectList) => res.json(projectList))
       .catch((err) => next(err));
   } else {
-    try {
-      const userId = req.user.attributes.id;
-      console.log(userId);
-      const projects = projectService.getProjectsAssociatedToUser(userId);
-      res.json(projects);
-    } catch (err) {
-      next(err);
-    }
+    const userId = req.user.attributes.id;
+    projectService
+      .getProjectsAssociatedToUser(userId)
+      .then((projects) => res.json(projects))
+      .catch((err) => next(err));
   }
+}
+
+function fetchAllUsersInProject(req, res, next) {
+  projectService
+    .getUsersAssociatedToProject(req.params.id)
+    .then((usersList) => res.json(usersList))
+    .catch((err) => next(err));
+}
+
+function addUserToProject(req, res, next) {
+  projectService
+    .newUserToProject(req.body.userId, req.params.id)
+    .then((data) => res.json(data))
+    .catch((err) => next(err));
 }
 
 function newProject(req, res, next) {
@@ -34,10 +45,25 @@ function fetchProject(req, res, next) {
 }
 
 function modifyProject(req, res, next) {
-  projectService
-    .updateProject(req.params.id, req.body)
-    .then((project) => res.json(project))
-    .catch((err) => next(err));
+  if (req.user.attributes.role === userRoles.admin) {
+    projectService
+      .updateProjectWithPM(req.params.id, req.body)
+      .then((project) => res.json(project))
+      .catch((err) => {
+        err.message = 'Error occured while modifying project';
+        err.statusCode = 500;
+        next(err);
+      });
+  } else {
+    projectService
+      .updateProject(req.params.id, req.body)
+      .then((project) => res.json(project))
+      .catch((err) => {
+        err.message = 'Error occured while modifying project';
+        err.statusCode = 500;
+        next(err);
+      });
+  }
 }
 
 function removeProject(req, res, next) {
@@ -49,6 +75,8 @@ function removeProject(req, res, next) {
 
 module.exports = {
   fetchAllProjects,
+  fetchAllUsersInProject,
+  addUserToProject,
   fetchProject,
   newProject,
   modifyProject,
