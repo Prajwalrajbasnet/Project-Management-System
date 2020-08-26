@@ -16,6 +16,18 @@ function getAllUsers() {
   return User.fetchAll({ columns: ['id', 'fname', 'lname', 'username', 'email', 'role', 'created_at', 'updated_at'] });
 }
 
+function getUserByUsername(username) {
+  return User.where({ username }).fetch({
+    columns: ['id', 'fname', 'lname', 'username', 'email', 'role', 'created_at', 'updated_at']
+  });
+}
+
+function getUserByEmail(email) {
+  return User.where({ email }).fetch({
+    columns: ['id', 'fname', 'lname', 'username', 'email', 'role', 'created_at', 'updated_at']
+  });
+}
+
 function getUser(id) {
   return User.where({ id }).fetch({
     columns: ['id', 'fname', 'lname', 'username', 'email', 'role', 'created_at', 'updated_at']
@@ -83,6 +95,8 @@ module.exports = {
   createUser,
   getAllUsers,
   getUser,
+  getUserByUsername,
+  getUserByEmail,
   updateUser,
   updateUserWithRole,
   verifyPassword,

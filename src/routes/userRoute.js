@@ -1,6 +1,8 @@
 const router = require('express').Router();
 const userController = require('../controller/userController'),
   validation = require('../middlewares/validation'),
+  checkDuplicateUsername = require('../middlewares/checkDuplicateUsername'),
+  checkDuplicateEmail = require('../middlewares/checkDuplicateEmail'),
   authorize = require('../middlewares/authorize');
 
 router.route('/').get(userController.fetchAllUsers);
@@ -8,6 +10,8 @@ router.post(
   '/register',
   validation.validateRequestBody('userRegister'),
   authorize.isAdmin,
+  checkDuplicateUsername,
+  checkDuplicateEmail,
   userController.registerUser
 );
 
