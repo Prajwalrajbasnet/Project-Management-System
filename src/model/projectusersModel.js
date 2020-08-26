@@ -3,7 +3,7 @@ const Project = require('./projectModel');
 const User = require('./userModel');
 
 const ProjectUsers = bookshelf.Model.extend({
-  tableName: 'projectusers',
+  tableName: 'project_user',
   project: function () {
     return this.belongsTo(Project);
   },

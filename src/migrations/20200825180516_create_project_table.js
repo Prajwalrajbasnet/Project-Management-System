@@ -1,6 +1,6 @@
 exports.up = function (knex) {
   return knex.schema.createTable('project', (table) => {
-    table.increments('p_id').primary();
+    table.increments('id').primary();
     table.string('name', 120).notNullable().unique();
     table.text('description');
     table.integer('project_manager').notNullable();

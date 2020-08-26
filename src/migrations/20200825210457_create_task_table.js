@@ -4,10 +4,10 @@ exports.up = function (knex) {
     table.string('title', 130).notNullable();
     table.text('description');
     table.datetime('deadline');
-    table.integer('p_id').notNullable();
+    table.integer('project_id').notNullable();
     table.integer('assignee');
     table.integer('last_assignee');
-    table.foreign('p_id').references('p_id').inTable('project');
+    table.foreign('project_id').references('id').inTable('project');
     table.foreign('assignee').references('id').inTable('user');
     table.foreign('last_assignee').references('id').inTable('user');
   });
