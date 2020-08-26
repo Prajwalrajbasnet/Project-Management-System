@@ -1,10 +1,22 @@
 const bookshelf = require('../db');
-const ProjectUsers = require('./projectusersModel');
+const Project = require('./projectModel');
+const Comment = require('./commentModel');
+const Task = require('./taskModel');
+const Tags = require('./tagsModel');
 
 const User = bookshelf.Model.extend({
   tableName: 'user',
-  projectusers: function () {
-    return this.hasMany(ProjectUsers);
+  project: function () {
+    return this.belongsToMany(Project);
+  },
+  task: function () {
+    return this.hasMany(Task);
+  },
+  comment: function () {
+    return this.hasMany(Comment);
+  },
+  tags: function () {
+    return this.hasMany(Tags);
   }
 });
 
