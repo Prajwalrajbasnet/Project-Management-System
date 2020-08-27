@@ -9,14 +9,14 @@ exports.seed = function (knex) {
           task_id: 9,
           title: 'Model relationships',
           description: 'Finish all the mapping of relations and create model for them',
-          p_id: 33,
+          project_id: 33,
           assignee: 5
         },
         {
           task_id: 10,
           title: 'Expose with API',
           description: 'Create routes and controllers for CRUD operations',
-          p_id: 33,
+          project_id: 33,
           assignee: 5
         }
       ]);

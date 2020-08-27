@@ -6,14 +6,14 @@ exports.seed = function (knex) {
       // Inserts seed entries
       return knex('project').insert([
         {
-          p_id: 33,
+          id: 33,
           description:
             'Minimal project management system capable of managing projects with hierarchy of different users',
           name: 'Project Management System',
           project_manager: 1
         },
         {
-          p_id: 34,
+          id: 34,
           description: 'App to store streak based on the habit you create and provide analysis and other',
           name: 'Steak App',
           project_manager: 6
