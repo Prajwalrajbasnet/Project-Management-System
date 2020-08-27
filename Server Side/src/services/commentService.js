@@ -3,8 +3,8 @@ const User = require('../model/userModel');
 const Task = require('../model/taskModel');
 
 function getAllComments(id) {
-  return Task.where({ task_id: id })
-    .fetch({ withRelated: ['comment'], require: true })
+  return Comment.where({ task_id: id })
+    .fetchAll()
     .then((output) => output)
     .catch((err) => {
       throw err;
