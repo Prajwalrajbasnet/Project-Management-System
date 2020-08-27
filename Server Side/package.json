@@ -7,7 +7,10 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon ./src/app.js",
     "seed": "knex seed:run --knexfile src/knexfile.js",
-    "migrate": "knex migrate:latest --knexfile src/knexfile.js"
+    "migrate": "knex migrate:latest --knexfile src/knexfile.js",
+    "rollback": "knex migrate:rollback --knexfile src/knexfile.js",
+    "make:seeder": "knex seed:make --knexfile src/knexfile.js",
+    "make:migration": "knex migrate:make --knexfile src/knexfile.js"
   },
   "author": "Prajwal Raj Basnet",
   "repository": {
@@ -21,6 +24,7 @@
     "bookshelf": "^1.2.0",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
+    "express": "^4.17.1",
     "express-validator": "^6.6.1",
     "jsonwebtoken": "^8.5.1",
     "knex": "^0.21.5",
