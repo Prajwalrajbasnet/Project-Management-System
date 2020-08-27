@@ -13,6 +13,6 @@ router
   .route('/:id')
   .get(commentController.fetchComment)
   .put(commentController.modifyComment)
-  .delete(commentController.removeComment);
+  .delete(authorize.isCommentOwner, commentController.removeComment);
 
 module.exports = router;

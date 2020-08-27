@@ -1,6 +1,7 @@
 const { userRoles } = require('../constants');
 const projectService = require('../services/projectService');
 const taskService = require('../services/taskService');
+const commentService = require('../services/commentService');
 
 const isAdmin = (req, res, next) => {
   //provide access only if the user is admin
@@ -69,6 +70,16 @@ const hasTaskUpdatePermission = (req, res, next) => {
     next();
   }
 };
+const isCommentOwner = (req, res, next) => {
+  commentService.getComment(req.params.id).then((comment) => {
+    console.log(comment);
+    if (comment.attributes.commented_by === req.user.attributes.id) {
+      next();
+    } else {
+      return res.status(401).json({ message: 'Comment can be deleted only by its owner.' });
+    }
+  });
+};
 
 module.exports = {
   isAdmin,
@@ -76,5 +87,6 @@ module.exports = {
   isAdminOrOwner,
   isRespectivePMOrOther,
   isAdminOrRespectivePM,
-  hasTaskUpdatePermission
+  hasTaskUpdatePermission,
+  isCommentOwner
 };
