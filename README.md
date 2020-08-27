@@ -21,4 +21,4 @@ Clone the repository, go to server side folder remove the remote branch, install
 
 ## For API
 
-Read [installation guide for API](Server Side/README.md) for the API development guide.
+Read [installation guide for API](README.md) for the API development guide.
