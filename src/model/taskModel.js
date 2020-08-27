@@ -2,6 +2,7 @@ const bookshelf = require('../db');
 const Project = require('./projectModel');
 const User = require('./userModel');
 const Comment = require('./commentModel');
+const Tags = require('./tagsModel');
 
 const Task = bookshelf.model('Task', {
   tableName: 'task',
@@ -13,6 +14,9 @@ const Task = bookshelf.model('Task', {
   },
   comment: function () {
     return this.hasMany('Comment');
+  },
+  tags: function () {
+    return this.hasMany('Tags');
   }
 });
 

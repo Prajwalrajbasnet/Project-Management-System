@@ -1,7 +1,8 @@
 const router = require('express').Router(),
   projectController = require('../controller/projectController'),
   authorize = require('../middlewares/authorize'),
-  checkDuplicateProject = require('../middlewares/checkDuplicateProject');
+  checkDuplicateProject = require('../middlewares/checkDuplicateProject'),
+  validation = require('../middlewares/validation');
 
 //GET & POST request for all projects
 router
@@ -20,6 +21,7 @@ router
 router
   .route('/:id/users')
   .get(projectController.fetchAllUsersInProject)
+  //add already registered user to project
   .post(authorize.isAdminOrRespectivePM, projectController.addUserToProject);
 
 module.exports = router;

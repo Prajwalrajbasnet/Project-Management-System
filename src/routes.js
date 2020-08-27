@@ -2,6 +2,7 @@ const router = require('express').Router(),
   authRoute = require('./routes/authRoute'),
   userRoute = require('./routes/userRoute'),
   projectsRoute = require('./routes/projectRoute'),
+  tasksRoute = require('./routes/taskRoute'),
   authenticate = require('./middlewares/authenticate');
 //GET request to root of API
 router.get('/', (req, res) => {
@@ -23,5 +24,8 @@ router.use('/users', authenticate, userRoute);
 
 //projects route
 router.use('/projects', authenticate, projectsRoute);
+
+//tasks route
+router.use('/tasks', authenticate, tasksRoute);
 
 module.exports = router;
