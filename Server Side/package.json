@@ -5,7 +5,9 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon ./src/app.js"
+    "start": "nodemon ./src/app.js",
+    "seed": "knex seed:run --knexfile src/knexfile.js",
+    "migrate": "knex migrate:latest --knexfile src/knexfile.js"
   },
   "author": "Prajwal Raj Basnet",
   "repository": {
