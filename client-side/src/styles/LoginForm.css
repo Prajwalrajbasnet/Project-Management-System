@@ -1,0 +1,37 @@
+.form {
+  height: 90vh;
+}
+.form-content {
+  background-color: #ffffff;
+  padding: 45px 35px;
+  border-radius: 6px;
+  box-shadow: 1px 1px 10px 6px rgba(0, 0, 0, 0.1);
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  max-width: 500px;
+}
+.form-title {
+  text-align: center;
+  font-size: 1.8em;
+  margin: 14px;
+  color: #694a38;
+  font-family: 'Do Hyeon', sans-serif;
+}
+.login-link {
+  text-align: center;
+  text-decoration: none;
+  color: #a61c3c;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: 500;
+  display: inline-block;
+  padding: 25px 0 0;
+}
+.login-link:hover {
+  text-decoration: underline;
+}
+@media screen and (min-width: 500px) {
+  .form-content {
+    padding: 45px 80px;
+  }
+}

@@ -1,0 +1,5 @@
+#build
+dist
+
+#npm files
+package.json
