@@ -72,7 +72,6 @@ const hasTaskUpdatePermission = (req, res, next) => {
 };
 const isCommentOwner = (req, res, next) => {
   commentService.getComment(req.params.id).then((comment) => {
-    console.log(comment);
     if (comment.attributes.commented_by === req.user.attributes.id) {
       next();
     } else {
