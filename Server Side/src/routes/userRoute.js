@@ -15,6 +15,8 @@ router.post(
   userController.registerUser
 );
 
+router.get('/current', userController.fetchCurrentUser);
+
 router
   .route('/id/:id')
   .get(userController.fetchUserById)

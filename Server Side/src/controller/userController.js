@@ -47,6 +47,13 @@ function fetchUserById(req, res, next) {
     .catch((err) => next(err));
 }
 
+function fetchCurrentUser(req, res, next) {
+  userService
+    .getUser(req.user.attributes.id)
+    .then((user) => res.json(user))
+    .catch((err) => next(err));
+}
+
 function modifyUserById(req, res, next) {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -136,6 +143,7 @@ module.exports = {
   registerUser,
   fetchAllUsers,
   fetchUserById,
+  fetchCurrentUser,
   modifyUserById,
   changePassword,
   removeUserById
