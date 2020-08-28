@@ -47,7 +47,7 @@ const TasksInfo = ({ className, ...rest }) => {
           </Grid>
         </Grid>
         <Box mt={3}>
-          <LinearProgress value={75.5} variant="determinate" />
+          <LinearProgress value={100} variant="determinate" />
         </Box>
       </CardContent>
     </Card>

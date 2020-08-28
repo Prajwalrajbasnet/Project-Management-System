@@ -5,6 +5,7 @@ import authService from './services/authService';
 import userService from './services/userService';
 import LoginForm from './views/Login';
 import Dashboard from './views/Dashboard/';
+import ProjectsList from './views/ProjectsList';
 import './styles/App.css';
 import { loginUser } from './actions/authActions';
 
@@ -28,6 +29,7 @@ class App extends React.Component {
         ></Route>
         <Route path="/login" component={LoginForm}></Route>
         {this.props.isLoggedIn && <Route path="/dashboard" component={Dashboard}></Route>}
+        {this.props.isLoggedIn && <Route path="/app/projects" component={ProjectsList}></Route>}
       </Switch>
     );
   }

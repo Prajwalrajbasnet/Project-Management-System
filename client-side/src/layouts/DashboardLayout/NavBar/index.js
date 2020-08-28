@@ -3,17 +3,15 @@ import { Link as RouterLink, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Avatar, Box, Divider, Drawer, Hidden, List, Typography, makeStyles } from '@material-ui/core';
 import {
-  AlertCircle as AlertCircleIcon,
   BarChart as BarChartIcon,
-  Lock as LockIcon,
   Settings as SettingsIcon,
-  ShoppingBag as ShoppingBagIcon,
   User as UserIcon,
   UserPlus as UserPlusIcon,
   Users as UsersIcon,
 } from 'react-feather';
 import NavItem from './NavItem';
 import { connect } from 'react-redux';
+import AccountTreeIcon from '@material-ui/icons/AccountTree';
 
 // const user = {
 //   avatar: '',
@@ -28,14 +26,14 @@ const items = [
     title: 'Dashboard',
   },
   {
-    href: '/app/customers',
+    href: '/app/users',
     icon: UsersIcon,
-    title: 'Customers',
+    title: 'Users',
   },
   {
-    href: '/app/products',
-    icon: ShoppingBagIcon,
-    title: 'Products',
+    href: '/app/projects',
+    icon: AccountTreeIcon,
+    title: 'Projects',
   },
   {
     href: '/app/account',
@@ -48,19 +46,9 @@ const items = [
     title: 'Settings',
   },
   {
-    href: '/login',
-    icon: LockIcon,
-    title: 'Login',
-  },
-  {
     href: '/register',
     icon: UserPlusIcon,
-    title: 'Register',
-  },
-  {
-    href: '/404',
-    icon: AlertCircleIcon,
-    title: 'Error',
+    title: 'Add User',
   },
 ];
 
