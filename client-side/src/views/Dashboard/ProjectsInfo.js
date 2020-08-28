@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ProjectInfo = ({ className, ...rest }) => {
+const ProjectInfo = ({ className, count, ...rest }) => {
   const classes = useStyles();
 
   return (
@@ -45,7 +45,7 @@ const ProjectInfo = ({ className, ...rest }) => {
               PROJECTS
             </Typography>
             <Typography color="textPrimary" variant="h3">
-              20
+              {count}
             </Typography>
           </Grid>
           <Grid item>

@@ -5,7 +5,8 @@ import UsersInfo from './UsersInfo';
 import TasksInfo from './TasksInfo';
 import { Container, Grid, makeStyles } from '@material-ui/core';
 import { connect } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { fetchUsers } from '../../actions/userActions';
+import { fetchProjects } from '../../actions/projectActions';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -16,25 +17,23 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Dashboard = ({ isLoggedIn }) => {
+const Dashboard = ({ users, projects, loadUsers, loadProjects }) => {
   const classes = useStyles();
-  const history = useHistory();
+
   useEffect(() => {
-    // if (!isLoggedIn) {
-    //   history.push('/login');
-    //   window.location.reload();
-    // }
-  });
+    loadUsers();
+    loadProjects();
+  }, []);
 
   return (
     <DashboardLayout>
       <Container className={classes.root} maxWidth={false}>
         <Grid container spacing={3}>
           <Grid item lg={4} sm={6} xl={4} xs={12}>
-            <ProjectsInfo />
+            <ProjectsInfo count={projects.length} />
           </Grid>
           <Grid item lg={4} sm={6} xl={4} xs={12}>
-            <UsersInfo />
+            <UsersInfo count={users.length} />
           </Grid>
           <Grid item lg={4} sm={6} xl={4} xs={12}>
             <TasksInfo />
@@ -48,7 +47,16 @@ const Dashboard = ({ isLoggedIn }) => {
 function mapStateToProps(state) {
   return {
     isLoggedIn: state.auth.isLoggedIn,
+    users: state.users.items,
+    projects: state.projects.items,
   };
 }
 
-export default connect(mapStateToProps)(Dashboard);
+function mapDispatchToProps(dispatch) {
+  return {
+    loadUsers: () => dispatch(fetchUsers()),
+    loadProjects: () => dispatch(fetchProjects()),
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
