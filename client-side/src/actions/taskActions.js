@@ -1,7 +1,5 @@
 import { FETCH_TASKS_BEGIN, FETCH_TASKS_SUCCESS, FETCH_TASKS_FAILURE } from '../constants/actionNames';
 import taskService from '../services/taskService';
-import { fetchProjectsFailure } from './projectActions';
-import tasks from '../reducers/taskReducer';
 
 export function fetchTasksBegin() {
   return {
@@ -23,21 +21,21 @@ export function fetchTasksFailure(error) {
   };
 }
 
-export function fetchTasks() {
+export function fetchTasks(projectId) {
   return (dispatch) => {
     dispatch(fetchTasksBegin());
     return taskService
-      .getAllTasks()
+      .getAllTasks(projectId)
       .then((res) => {
         dispatch(fetchTasksSuccess(res.data));
       })
-      .catch((error) => dispatch(fetchProjectsFailure(error)));
+      .catch((error) => dispatch(fetchTasksFailure(error)));
   };
 }
 
-export function addTask(newTask, originalTasks, resolve) {
+export function addTask(newTask, originalTasks, id, resolve) {
   return (dispatch) => {
-    newTask.project_id = 33;
+    newTask.project_id = id;
     return taskService
       .createTask(newTask)
       .then((res) => {
@@ -48,7 +46,7 @@ export function addTask(newTask, originalTasks, resolve) {
       .catch((error) => {
         console.log(error);
         resolve();
-        dispatch(fetchProjectsFailure(error));
+        dispatch(fetchTasksFailure(error));
       });
   };
 }
@@ -66,7 +64,7 @@ export function updateTask(updatedTask, oldTask, originaTasks, resolve) {
       .catch((error) => {
         console.log(error);
         resolve();
-        dispatch(fetchProjectsFailure(error));
+        dispatch(fetchTasksFailure(error));
       });
   };
 }
@@ -84,7 +82,7 @@ export function deleteTask(oldTask, originalTasks, resolve) {
       .catch((error) => {
         console.log(error);
         resolve();
-        dispatch(fetchProjectsFailure(error));
+        dispatch(fetchTasksFailure(error));
       });
   };
 }

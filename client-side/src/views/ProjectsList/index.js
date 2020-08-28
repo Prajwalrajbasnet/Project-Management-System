@@ -5,7 +5,6 @@ import Toolbar from './Toolbar';
 import ProjectCard from './ProjectCard';
 import { connect } from 'react-redux';
 import { fetchProjects } from '../../actions/projectActions';
-import Dashboard from '../Dashboard';
 
 const useStyles = makeStyles((theme) => ({
   root: {

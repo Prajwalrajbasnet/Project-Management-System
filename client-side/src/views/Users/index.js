@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { forwardRef } from 'react';
 import { Grid, makeStyles } from '@material-ui/core';
+import Avatar from 'react-avatar';
 
 import MaterialTable from 'material-table';
 import AddBox from '@material-ui/icons/AddBox';
@@ -20,9 +21,8 @@ import Search from '@material-ui/icons/Search';
 import ViewColumn from '@material-ui/icons/ViewColumn';
 
 import { connect } from 'react-redux';
-import { fetchTasks, addTask, updateTask, deleteTask } from '../../actions/taskActions';
+import { fetchUsers, addUser, updateUser, deleteUser } from '../../actions/userActions';
 import DashboardLayout from '../../layouts/DashboardLayout';
-import { useParams } from 'react-router-dom';
 
 const tableIcons = {
   Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
@@ -44,21 +44,23 @@ const tableIcons = {
   ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />),
 };
 
-const TasksTable = ({ tasks, loadTasks, newTask, modifyTask, removeTask }) => {
+const Users = ({ users, loadUsers, newUser, modifyUser, removeUser }) => {
   var columns = [
     { title: 'id', field: 'id', hidden: true },
-    { title: 'Title', field: 'title' },
-    { title: 'Description', field: 'description' },
-    { title: 'Deadline', field: 'deadline' },
-    { title: 'Project Id', field: 'project_id', hidden: true },
-    { title: 'Assignee', field: 'assignee' },
-    { title: 'Last Assignee', field: 'last_assignee' },
+    {
+      title: 'Avatar',
+      render: (rowData) => (
+        <Avatar maxInitials={1} size={40} round={true} name={rowData === undefined ? ' ' : rowData.fname} />
+      ),
+    },
+    { title: 'First Name', field: 'fname' },
+    { title: 'Last Name', field: 'lname' },
+    { title: 'Email', field: 'email' },
+    { title: 'Username', field: 'username' },
   ];
 
-  const { id } = useParams();
-
   useEffect(() => {
-    loadTasks(id);
+    loadUsers();
   }, []);
 
   const useStyles = makeStyles((theme) => ({
@@ -76,22 +78,22 @@ const TasksTable = ({ tasks, loadTasks, newTask, modifyTask, removeTask }) => {
     <DashboardLayout>
       <Grid className={classes.root}>
         <MaterialTable
-          title={`Tasks of project no ${id}`}
+          title={'List of Users in the system'}
           columns={columns}
-          data={tasks}
+          data={users}
           icons={tableIcons}
           editable={{
             onRowUpdate: (newData, oldData) =>
               new Promise((resolve) => {
-                modifyTask(newData, oldData, tasks, resolve);
+                modifyUser(newData, oldData, users, resolve);
               }),
             onRowAdd: (newData) =>
               new Promise((resolve) => {
-                newTask(newData, tasks, id, resolve);
+                newUser(newData, users, resolve);
               }),
             onRowDelete: (oldData) =>
               new Promise((resolve) => {
-                removeTask(oldData, tasks, resolve);
+                removeUser(oldData, users, resolve);
               }),
           }}
         />
@@ -102,19 +104,18 @@ const TasksTable = ({ tasks, loadTasks, newTask, modifyTask, removeTask }) => {
 
 function mapStateToProps(state) {
   return {
-    tasks: state.tasks.items,
+    users: state.users.items,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    loadTasks: (projectId) => dispatch(fetchTasks(projectId)),
-    newTask: (newTask, originalTasks, projectId, resolve) =>
-      dispatch(addTask(newTask, originalTasks, projectId, resolve)),
-    modifyTask: (updatedTask, oldTask, originalTasks, resolve) =>
-      dispatch(updateTask(updatedTask, oldTask, originalTasks, resolve)),
-    removeTask: (oldTask, originalTasks, resolve) => dispatch(deleteTask(oldTask, originalTasks, resolve)),
+    loadUsers: () => dispatch(fetchUsers()),
+    newUser: (newUser, originalUsers, resolve) => dispatch(addUser(newUser, originalUsers, resolve)),
+    modifyUser: (updatedUser, oldUser, originalUsers, resolve) =>
+      dispatch(updateUser(updatedUser, oldUser, originalUsers, resolve)),
+    removeUser: (oldUser, originalUsers, resolve) => dispatch(deleteUser(oldUser, originalUsers, resolve)),
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(TasksTable);
+export default connect(mapStateToProps, mapDispatchToProps)(Users);

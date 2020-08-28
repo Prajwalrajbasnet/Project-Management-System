@@ -1,8 +1,8 @@
 import http, { getAuthenticationHeader } from '../utils/httpUtil';
 import config from '../config';
 class TaskService {
-  getAllTasks() {
-    return http.get(`${config.endpoints.tasks}?project=33`, { headers: getAuthenticationHeader() });
+  getAllTasks(id) {
+    return http.get(`${config.endpoints.tasks}?project=${id}`, { headers: getAuthenticationHeader() });
   }
 
   getSingleTask(id) {
