@@ -10,19 +10,19 @@ class AuthService {
       .then((response) => {
         if (response.data.token) {
           localStorage.setItem(config.LOCAL_STORAGE_KEY, JSON.stringify(response.data));
-          return response.data.user;
+          return response.data;
         }
       })
       .catch((error) => error);
   }
 
-  logout() {
+  removeToken() {
     localStorage.removeItem(config.LOCAL_STORAGE_KEY);
   }
 
-  getCurrentUser() {
-    return JSON.parse(localStorage.getItem(config.LOCAL_STORAGE_KEY));
-  }
+  // getCurrentUser() {
+  //   return JSON.parse(localStorage.getItem(config.LOCAL_STORAGE_KEY));
+  // }
 
   getAuthenticationToken() {
     const user = JSON.parse(localStorage.getItem(config.LOCAL_STORAGE_KEY));

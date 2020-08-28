@@ -3,16 +3,16 @@ import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { loginUser } from '../actions/authActions';
+import { loginUser } from '../../actions/authActions';
 import { TextField, Button, Grid } from '@material-ui/core';
 import { makeStyles, createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
 import LockIcon from '@material-ui/icons/Lock';
 import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 import InputAdornment from '@material-ui/core/InputAdornment';
-import AuthService from '../services/authService';
+import AuthService from '../../services/authService';
 import { Alert, AlertTitle } from '@material-ui/lab';
-import '../styles/LoginForm.css';
+import '../../styles/LoginForm.css';
 
 function LoginForm(props) {
   const [verified, setVerified] = useState(false);
@@ -75,6 +75,7 @@ function LoginForm(props) {
       window.location.reload();
       setVerified(true);
     } else {
+      console.log(user);
       setVerified(false);
       const resMessage =
         (user.response && user.response.data && user.response.data.message) || user.message || user.toString();

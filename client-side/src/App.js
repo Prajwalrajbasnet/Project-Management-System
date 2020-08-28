@@ -1,10 +1,21 @@
 import React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import LoginForm from './views/LoginForm';
-import Dashboard from './views/Dashboard';
+import authService from './services/authService';
+import userService from './services/userService';
+import LoginForm from './views/Login';
+import Dashboard from './views/Dashboard/';
+import './styles/App.css';
+import { loginUser } from './actions/authActions';
 
 class App extends React.Component {
+  componentDidMount() {
+    const userToken = authService.getAuthenticationToken();
+    if (userToken) {
+      this.props.changeLoginStatus();
+    }
+  }
+
   render() {
     return (
       <Switch>
@@ -16,7 +27,7 @@ class App extends React.Component {
           }}
         ></Route>
         <Route path="/login" component={LoginForm}></Route>
-        <Route path="/dashboard" component={Dashboard}></Route>
+        {this.props.isLoggedIn && <Route path="/dashboard" component={Dashboard}></Route>}
       </Switch>
     );
   }
@@ -28,4 +39,10 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(App);
+function mapDispatchToProps(dispatch) {
+  return {
+    changeLoginStatus: () => dispatch(loginUser()),
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
