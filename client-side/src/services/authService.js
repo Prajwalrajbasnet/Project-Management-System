@@ -10,7 +10,7 @@ class AuthService {
       .then((response) => {
         if (response.data.token) {
           localStorage.setItem(config.LOCAL_STORAGE_KEY, JSON.stringify(response.data));
-          return true;
+          return response.data.user;
         }
       })
       .catch((error) => error);

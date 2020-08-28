@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import { useHistory } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { loginUser } from '../actions/authActions';
 import { TextField, Button, Grid } from '@material-ui/core';
 import { makeStyles, createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
@@ -66,17 +68,16 @@ function LoginForm(props) {
   };
 
   async function login(values) {
-    const status = await AuthService.login(values.username, values.password);
-    if (status === true) {
-      history.push('/app');
+    const user = await AuthService.login(values.username, values.password);
+    if (user) {
+      props.login(user);
+      history.push('/');
       window.location.reload();
       setVerified(true);
     } else {
       setVerified(false);
       const resMessage =
-        (status.response && status.response.data && status.response.data.message) ||
-        status.message ||
-        status.toString();
+        (user.response && user.response.data && user.response.data.message) || user.message || user.toString();
       setMessage(resMessage);
     }
   }
@@ -151,4 +152,16 @@ function LoginForm(props) {
   );
 }
 
-export default LoginForm;
+function mapStateToProps(state) {
+  return {};
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    login: (user) => {
+      dispatch(loginUser(user));
+    },
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);
