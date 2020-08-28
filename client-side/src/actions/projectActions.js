@@ -29,6 +29,6 @@ export function fetchProjects() {
       .then((res) => {
         dispatch(fetchProjectsSuccess(res.data));
       })
-      .catch((error) => dispatch(fetchProjectsFailure));
+      .catch((error) => dispatch(fetchProjectsFailure(error)));
   };
 }

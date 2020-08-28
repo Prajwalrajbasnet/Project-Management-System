@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ProjectsList = ({ projects, loadProjects }) => {
+const ProjectsList = ({ projects, loadProjects, user }) => {
   const classes = useStyles();
 
   useEffect(() => {
@@ -29,7 +29,7 @@ const ProjectsList = ({ projects, loadProjects }) => {
   return (
     <DashboardLayout>
       <Container className={classes.root} maxWidth={false}>
-        <Toolbar />
+        {user.role === 'admin' && <Toolbar />}
         <Box mt={3}>
           <Grid container spacing={3}>
             {projects.map((project) => (
@@ -48,6 +48,7 @@ function mapStateToProps(state) {
   return {
     projects: state.projects.items || [],
     loading: state.projects.loading,
+    user: state.auth.user,
   };
 }
 

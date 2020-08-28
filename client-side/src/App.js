@@ -2,10 +2,10 @@ import React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import authService from './services/authService';
-import userService from './services/userService';
 import LoginForm from './views/Login';
 import Dashboard from './views/Dashboard/';
 import ProjectsList from './views/ProjectsList';
+import TasksTable from './views/Tasks';
 import './styles/App.css';
 import { loginUser } from './actions/authActions';
 
@@ -29,7 +29,8 @@ class App extends React.Component {
         ></Route>
         <Route path="/login" component={LoginForm}></Route>
         {this.props.isLoggedIn && <Route path="/dashboard" component={Dashboard}></Route>}
-        {this.props.isLoggedIn && <Route path="/app/projects" component={ProjectsList}></Route>}
+        {this.props.isLoggedIn && <Route path="/app/projects" exact component={ProjectsList}></Route>}
+        {this.props.isLoggedIn && <Route path="/app/projects/33/tasks" exact component={TasksTable}></Route>}
       </Switch>
     );
   }

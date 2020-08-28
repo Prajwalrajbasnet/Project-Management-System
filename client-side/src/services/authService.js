@@ -26,7 +26,6 @@ class AuthService {
 
   getAuthenticationToken() {
     const user = JSON.parse(localStorage.getItem(config.LOCAL_STORAGE_KEY));
-    console.log(user);
     if (user && user.token) {
       return user.token;
     } else {

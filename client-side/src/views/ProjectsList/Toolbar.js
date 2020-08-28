@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
-import { Box, Button, Card, CardContent, TextField, InputAdornment, SvgIcon, makeStyles } from '@material-ui/core';
-import { Search as SearchIcon } from 'react-feather';
+import { Box, Button, makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -21,7 +20,7 @@ const Toolbar = ({ className, ...rest }) => {
     <div className={clsx(classes.root, className)} {...rest}>
       <Box display="flex" justifyContent="flex-end">
         <Button color="primary" variant="contained">
-          Add product
+          Add project
         </Button>
       </Box>
     </div>
